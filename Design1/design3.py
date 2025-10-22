@@ -144,14 +144,14 @@ with tab8:
     fig8_pie.update_traces(textinfo='label+value', textfont_size=14)
     fig8_pie.update_layout(height=400, showlegend=True)
 
-    # Interactive Selection: Select Nagara and show Vasati details
-    unique_nagara = sorted(df8['Nagara'].unique())
-    selected_nagara = st.selectbox(
-        'Select a Nagara to view Vasati Details:',
-        options=unique_nagara,
-        index=0,
-        key='nagara_select'  # Added unique key to fix the error
-    )
+    # # Interactive Selection: Select Nagara and show Vasati details
+    # unique_nagara = sorted(df8['Nagara'].unique())
+    # selected_nagara = st.selectbox(
+    #     'Select a Nagara to view Vasati Details:',
+    #     options=unique_nagara,
+    #     index=0,
+    #     key='nagara_select'  # Added unique key to fix the error
+    # )
 
     
     # Sub-tabs for plot and table
@@ -218,6 +218,7 @@ with tab3:
 st.markdown('---')
 
 st.caption('RSS@100 | Sangha Shatabdi | Vijayanagara Bhaga | Bengaluru Dakshina')
+
 
 
 
