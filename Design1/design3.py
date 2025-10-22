@@ -102,7 +102,38 @@ with tab8:
         fig8_vasati = None
         st.warning(f"No data found for {selected_nagara}")
 
+    # Plot 4: Custom Bins Histogram of Grand Total
+    bin_edges = [0, 11, 25, 51, 75, 100,
+                 501]  # Edges for bins [0,10], [11,24], [25,50], [51,74], [75,99], [100,500]
+    bin_labels = ['0-10', '11-24', '25-50', '51-74', '75-99', '100-500']
+    bin_midpoints = [5, 17.5, 37.5, 62.5, 87, 300]  # Midpoints for tick labels
 
+    # Manually bin the data using pd.cut
+    df8['Bin'] = pd.cut(df8['Grand Total'], bins=bin_edges, labels=bin_labels, right=False, include_lowest=True)
+    binned_df = df8.groupby('Bin', observed=True).size().reset_index(name='Frequency')
+    binned_df = binned_df.sort_values('Bin')  # Ensure order
+
+    fig8_hist = px.bar(binned_df,
+                       x='Bin',
+                       y='Frequency',
+                       title='Grouping',
+                       labels={'Bin': 'Upasthiti', 'Frequency': 'Utsava Sankhye'},
+                       color='Frequency',
+                       color_continuous_scale='Oranges')
+
+    # Increase y-axis by 5% padding
+    y_max_hist = binned_df['Frequency'].max()
+    y_padding_hist = y_max_hist * 0.25
+    fig8_hist.update_layout(yaxis=dict(range=[0, y_max_hist + y_padding_hist]),
+                            height=400, showlegend=False,
+                            margin=dict(l=100))
+    # Customize x-axis
+    fig8_hist.update_xaxes(tickfont=dict(size=14, family="Arial Black, sans-serif"))
+
+    # Add total count on each bar with increased font size
+    fig8_hist.update_traces(texttemplate='%{y}', textposition='outside', textfont=dict(size=20))
+    
+    
     # Sub-tabs for plot and table
     subtab_plot, subtab_data = st.tabs(['Summary Plot', 'Detailed Data'])
 
@@ -113,6 +144,7 @@ with tab8:
 
         st.plotly_chart(fig8)
         st.plotly_chart(fig8_top5)
+        st.plotly_chart(fig8_hist)
 
 
     with subtab_data:
@@ -165,3 +197,4 @@ with tab3:
 st.markdown('---')
 
 st.caption('RSS@100 | Sangha Shatabdi | Vijayanagara Bhaga | Bengaluru Dakshina')
+
