@@ -103,10 +103,10 @@ with tab8:
         st.warning(f"No data found for {selected_nagara}")
 
     # Plot 4: Custom Bins Histogram of Grand Total
-    bin_edges = [0, 11, 25, 51, 75, 100,
-                 501]  # Edges for bins [0,10], [11,24], [25,50], [51,74], [75,99], [100,500]
-    bin_labels = ['0-10', '11-24', '25-50', '51-74', '75-99', '100-500']
-    bin_midpoints = [5, 17.5, 37.5, 62.5, 87, 300]  # Midpoints for tick labels
+    bin_edges = [0, 10, 25, 51, 75, 100,
+                 501]  # Edges for bins [0,9], [10,24], [25,50], [51,74], [75,99], [100,500]
+    bin_labels = ['0-9', '10-24', '25-50', '51-74', '75-99', '100-500']
+    bin_midpoints = [4.5, 17, 37.5, 62.5, 87, 300]  # Midpoints for tick labels
 
     # Manually bin the data using pd.cut
     df8['Bin'] = pd.cut(df8['Grand Total'], bins=bin_edges, labels=bin_labels, right=False, include_lowest=True)
@@ -197,4 +197,5 @@ with tab3:
 st.markdown('---')
 
 st.caption('RSS@100 | Sangha Shatabdi | Vijayanagara Bhaga | Bengaluru Dakshina')
+
 
