@@ -133,6 +133,26 @@ with tab8:
     # Add total count on each bar with increased font size
     fig8_hist.update_traces(texttemplate='%{y}', textposition='outside', textfont=dict(size=20))
     
+    # Plot 5: Pie Chart for Nagara Aggregate Count
+    nagara_count = df8['Nagara'].value_counts().reset_index()
+    nagara_count.columns = ['Nagara', 'Count']
+    fig8_pie = px.pie(nagara_count,
+                      values='Count',
+                      names='Nagara',
+                      title='Total Utsava',
+                      color_discrete_sequence=px.colors.qualitative.Set3)
+    fig8_pie.update_traces(textinfo='label+value', textfont_size=14)
+    fig8_pie.update_layout(height=400, showlegend=True)
+
+    # Interactive Selection: Select Nagara and show Vasati details
+    unique_nagara = sorted(df8['Nagara'].unique())
+    selected_nagara = st.selectbox(
+        'Select a Nagara to view Vasati Details:',
+        options=unique_nagara,
+        index=0,
+        key='nagara_select'  # Added unique key to fix the error
+    )
+
     
     # Sub-tabs for plot and table
     subtab_plot, subtab_data = st.tabs(['Summary Plot', 'Detailed Data'])
@@ -145,6 +165,7 @@ with tab8:
         st.plotly_chart(fig8)
         st.plotly_chart(fig8_top5)
         st.plotly_chart(fig8_hist)
+        st.plotly_chart(fig8_pie)
 
 
     with subtab_data:
@@ -197,5 +218,6 @@ with tab3:
 st.markdown('---')
 
 st.caption('RSS@100 | Sangha Shatabdi | Vijayanagara Bhaga | Bengaluru Dakshina')
+
 
 
