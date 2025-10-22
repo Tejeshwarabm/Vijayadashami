@@ -6,7 +6,7 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Read the Excel file, focusing only on Sheet8 and Sheet3
-file_path = 'Vijayadashami_VIJ_2025.xlsx'
+file_path = 'Design1/Vijayadashami_VIJ_2025.xlsx'
 
 
 @st.cache_data
@@ -163,4 +163,5 @@ with tab3:
 
 # Footer
 st.markdown('---')
+
 st.caption('RSS@100 | Sangha Shatabdi | Vijayanagara Bhaga | Bengaluru Dakshina')
