@@ -18,10 +18,10 @@ def load_sheets():
 sheets = load_sheets()
 
 # Streamlit app title
-st.title('Vijayadashami 2025 (VIJAYNAGARA BHAGA)')
+st.title('Centenary Events (VIJAYNAGARA BHAGA)')
 
 # Create main tabs for each sheet
-tab8, tab3 = st.tabs(['Vijayadashami Utsava', 'Patha Sanchalana'])
+tab8, tab3 = st.tabs(['Vijayadashami Utsava 2025', 'Patha Sanchalana'])
 
 with tab8:
     df8 = sheets['Sheet8']
@@ -169,7 +169,7 @@ with tab8:
 
 
     with subtab_data:
-        st.subheader('Vijayadashami Utsava')
+        st.subheader('Vijayadashami Utsava 2025')
         st.dataframe(df8)
 
 with tab3:
