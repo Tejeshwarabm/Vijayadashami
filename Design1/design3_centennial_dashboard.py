@@ -4,7 +4,57 @@ import plotly.express as px
 from pathlib import Path
 
 # Page configuration
+
+# Page configuration
 st.set_page_config(layout="wide")
+
+# Custom CSS – Professional Blue and Saffron Theme
+st.markdown("""
+<style>
+.stTabs [data-baseweb="tab-list"] {
+    gap: 10px;
+    background-color: #F1F3F6;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background-color: #17365D;
+    color: white;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    background-color: #E98224 !important;
+    color: white !important;
+}
+
+.stTabs [data-baseweb="tab"] p {
+    font-size: 15px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    background-color: #315B85;
+}
+
+.stTabs [data-baseweb="tab-highlight"] {
+    background-color: transparent;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# Set Pan mode as the default for all Plotly charts
+def display_plotly_chart(fig, **kwargs):
+    fig.update_layout(dragmode="pan")
+    st.plotly_chart(fig, **kwargs)
+
 
 # Find the workbook either in the existing Design1 folder or beside this script.
 BASE_DIR = Path(__file__).resolve().parent
@@ -47,13 +97,13 @@ if not Path(file_path).exists():
 sheets = load_sheets(str(file_path))
 
 # Dashboard title
-st.title("Vijayadashami Centenary Year Dashboard – Vijayanagara Bhaga")
+st.title("Centenary Year: RSS@100 – Vijayanagara Bhaga")
 
 # Main tabs
 tab8, tab3, tab_gruha, tab_hindu, tab_horizon, tab_yuva = st.tabs([
     "Vijayadashami Utsava",
     "Patha Sanchalana",
-    "Gruha",
+    "Gruha Samparka Abhiyana",
     "Hindu Sammelan",
     "Pramukha Nagarika Ghoshti",
     "Yuva",
@@ -192,11 +242,11 @@ with tab8:
     subtab_plot, subtab_data = st.tabs(["Summary Plot", "Detailed Data"])
     with subtab_plot:
         if fig8_vasati is not None:
-            st.plotly_chart(fig8_vasati, use_container_width=True)
-        st.plotly_chart(fig8, use_container_width=True)
-        st.plotly_chart(fig8_top5, use_container_width=True)
-        st.plotly_chart(fig8_hist, use_container_width=True)
-        st.plotly_chart(fig8_pie, use_container_width=True)
+            display_plotly_chart(fig8_vasati, use_container_width=True)
+        display_plotly_chart(fig8, use_container_width=True)
+        display_plotly_chart(fig8_top5, use_container_width=True)
+        display_plotly_chart(fig8_hist, use_container_width=True)
+        display_plotly_chart(fig8_pie, use_container_width=True)
 
     with subtab_data:
         st.subheader("Vijayadashami Utsava")
@@ -351,8 +401,8 @@ with tab3:
     )
 
     with subtab_plot:
-        st.plotly_chart(fig_compare, use_container_width=True)
-        st.plotly_chart(fig_trend, use_container_width=True)
+        display_plotly_chart(fig_compare, use_container_width=True)
+        display_plotly_chart(fig_trend, use_container_width=True)
 
     with subtab_data:
         st.subheader("Nagara-wise Three-Year Comparison")
@@ -418,7 +468,7 @@ with tab_gruha:
         )
         fig_houses.update_traces(textposition="outside", cliponaxis=False)
         fig_houses.update_layout(height=500, showlegend=False)
-        st.plotly_chart(fig_houses, use_container_width=True)
+        display_plotly_chart(fig_houses, use_container_width=True)
 
     outreach_metrics = [
         "Reaches to houses",
@@ -450,7 +500,7 @@ with tab_gruha:
     )
     fig_gruha_metric.update_traces(textposition="outside", cliponaxis=False)
     fig_gruha_metric.update_layout(height=450, showlegend=False)
-    st.plotly_chart(fig_gruha_metric, use_container_width=True)
+    display_plotly_chart(fig_gruha_metric, use_container_width=True)
 
     with st.expander("View complete Gruha data"):
         st.dataframe(raw_gruha, use_container_width=True, hide_index=True)
@@ -502,7 +552,7 @@ with tab_hindu:
     )
     fig_hindu_gender.update_traces(textposition="outside", cliponaxis=False)
     fig_hindu_gender.update_layout(height=550)
-    st.plotly_chart(fig_hindu_gender, use_container_width=True)
+    display_plotly_chart(fig_hindu_gender, use_container_width=True)
 
     total_row = raw_hindu[raw_hindu["Metric"] == "Total Participated"]
     if not total_row.empty:
@@ -517,7 +567,7 @@ with tab_hindu:
         )
         fig_hindu_total.update_traces(textposition="outside", cliponaxis=False)
         fig_hindu_total.update_layout(height=450, showlegend=False)
-        st.plotly_chart(fig_hindu_total, use_container_width=True)
+        display_plotly_chart(fig_hindu_total, use_container_width=True)
 
     with st.expander("View complete Hindu Sammelan data"):
         st.dataframe(raw_hindu, use_container_width=True, hide_index=True)
@@ -560,7 +610,7 @@ with tab_horizon:
         hole=0.35
     )
     fig_horizon_gender.update_traces(textinfo="label+value+percent")
-    st.plotly_chart(fig_horizon_gender, use_container_width=True)
+    display_plotly_chart(fig_horizon_gender, use_container_width=True)
 
     plan_data = pd.DataFrame({
         "Status": ["Planned", "Participated"],
@@ -574,7 +624,7 @@ with tab_horizon:
     )
     fig_horizon_plan.update_traces(textposition="outside", cliponaxis=False)
     fig_horizon_plan.update_layout(height=400, showlegend=False)
-    st.plotly_chart(fig_horizon_plan, use_container_width=True)
+    display_plotly_chart(fig_horizon_plan, use_container_width=True)
 
     st.markdown("#### Source Sheet Details")
     st.dataframe(raw_horizon, use_container_width=True, hide_index=True)
@@ -650,7 +700,7 @@ with tab_yuva:
     )
     fig_yuva_groups.update_traces(textposition="outside", cliponaxis=False)
     fig_yuva_groups.update_layout(height=550)
-    st.plotly_chart(fig_yuva_groups, use_container_width=True)
+    display_plotly_chart(fig_yuva_groups, use_container_width=True)
 
     fig_yuva_total = px.bar(
         yuva_nagara,
@@ -663,7 +713,7 @@ with tab_yuva:
     )
     fig_yuva_total.update_traces(textposition="outside", cliponaxis=False)
     fig_yuva_total.update_layout(height=450, showlegend=False)
-    st.plotly_chart(fig_yuva_total, use_container_width=True)
+    display_plotly_chart(fig_yuva_total, use_container_width=True)
 
     if not yuva_it_milan.empty:
         st.markdown("#### IT Milan – Separate Contribution")
