@@ -695,7 +695,10 @@ with tab_yuva:
         },
     )
     fig_yuva_groups.update_traces(textposition="outside", cliponaxis=False)
-    fig_yuva_groups.update_layout(height=550)
+    fig_yuva_groups.update_layout(
+        height=550,
+        yaxis=dict(range=[0, 70], title="Participants")
+    )
     display_plotly_chart(fig_yuva_groups, use_container_width=True)
 
     fig_yuva_total = px.bar(
@@ -708,7 +711,11 @@ with tab_yuva:
         color_continuous_scale="Viridis",
     )
     fig_yuva_total.update_traces(textposition="outside", cliponaxis=False)
-    fig_yuva_total.update_layout(height=450, showlegend=False)
+    fig_yuva_total.update_layout(
+        height=450,
+        showlegend=False,
+        yaxis=dict(range=[0, 100], title="Total Participants")
+    )
     display_plotly_chart(fig_yuva_total, use_container_width=True)
 
     if not yuva_it_milan.empty:
