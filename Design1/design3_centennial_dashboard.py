@@ -9,45 +9,41 @@ from pathlib import Path
 st.set_page_config(layout="wide")
 
 # Custom CSS – Professional Blue and Saffron Theme
+
+# Custom CSS – Blue and Saffron Theme
 st.markdown("""
 <style>
-.stTabs [data-baseweb="tab-list"] {
-    gap: 10px;
-    background-color: #F1F3F6;
-    padding: 10px;
-    border-radius: 12px;
+
+/* Tab navigation container */
+.stTabs [data-testid="stTab"] {
+    background-color: #17365D !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 12px 22px !important;
+    font-weight: 600 !important;
 }
 
-.stTabs [data-baseweb="tab"] {
-    background-color: #17365D;
-    color: white;
-    border-radius: 8px;
-    padding: 12px 22px;
-    font-weight: 600;
-    border: none;
-    transition: background-color 0.2s ease;
-}
-
-.stTabs [data-baseweb="tab"][aria-selected="true"] {
+/* Active tab */
+.stTabs [data-testid="stTab"][aria-selected="true"] {
     background-color: #E98224 !important;
     color: white !important;
 }
 
-.stTabs [data-baseweb="tab"] p {
-    font-size: 15px;
-    font-weight: bold;
+/* Tab label */
+.stTabs [data-testid="stTab"] p {
     color: white !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
 }
 
-.stTabs [data-baseweb="tab"]:hover {
-    background-color: #315B85;
+/* Hover */
+.stTabs [data-testid="stTab"]:hover {
+    background-color: #315B85 !important;
 }
 
-.stTabs [data-baseweb="tab-highlight"] {
-    background-color: transparent;
-}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # Set Pan mode as the default for all Plotly charts
